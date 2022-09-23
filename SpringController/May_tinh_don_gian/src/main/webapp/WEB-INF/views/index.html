@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,19 +19,35 @@
 <body>
 <h1>Caculator</h1>
 <form action="/caculator/cacul" method="post">
-    <input value="num1">
-    <input value="num2">
-    <br>
-    <button name="cong" type="submit" >Cộng</button>
-    <!--&nbsp;-->
-    <button name="tru">Trừ</button>
-
-    <button name="nhan">Nhân</button>
-
-    <button name="chia">Chia</button>
-    <br>
-    <br>
-    <div>RESUILT:</div>
+    <table>
+        <tr>
+            <td>
+                <input id="sothunhat" name="num1" type="number">
+            </td>
+            <td>
+                <input id="sothuhai" name="num2" type="number">
+            </td>
+            <td></td>
+            <td>Result: </td>
+            <td th:text="${result}"> </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <button value="+" name="caculation">Cộng</button>
+            </td>
+            <td>
+                <button value="-" name="caculation">Trừ</button>
+            </td>
+            <td>
+                <button value="*" name="caculation">Nhân</button>
+            </td>
+            <td>
+                <button value="/" name="caculation">Chia</button>
+            </td>
+        </tr>
+    </table>
 </form>
 
 </body>

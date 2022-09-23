@@ -1,5 +1,8 @@
-package com.codegym.configuration;
+package com.example.crud_car_with_thymeleaf.config;
 
+import com.example.crud_car_with_thymeleaf.model.Car;
+import com.example.crud_car_with_thymeleaf.common.ICRUDService;
+import com.example.crud_car_with_thymeleaf.service.impl.CarServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,8 +18,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.codegym.controller")
-public class AppConfiguration implements WebMvcConfigurer,  ApplicationContextAware {
+@ComponentScan("com.example.crud_car_with_thymeleaf.controller")
+public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -25,12 +28,12 @@ public class AppConfiguration implements WebMvcConfigurer,  ApplicationContextAw
         this.applicationContext = applicationContext;
     }
 
-    //Cấu hình Thymleaf
+    // thymeleaf
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setPrefix("/WEB-INF/car/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -45,10 +48,15 @@ public class AppConfiguration implements WebMvcConfigurer,  ApplicationContextAw
     }
 
     @Bean
-    public ThymeleafViewResolver viewResolver() {
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setCharacterEncoding("UTF-8");
-        return viewResolver;
+    public ThymeleafViewResolver thymeleafViewResolver() {
+        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+        thymeleafViewResolver.setTemplateEngine(templateEngine());
+        thymeleafViewResolver.setCharacterEncoding("UTF-8");
+        return thymeleafViewResolver;
+    }
+
+    @Bean
+    public ICRUDService<Car> carService() {
+        return new CarServiceImpl();
     }
 }
